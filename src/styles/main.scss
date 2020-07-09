@@ -1,3 +1,75 @@
+$main-font: arial, sans-serif;
+$font-size: 30px;
+$cell-color: #eee;
+$hover-color: pink;
+$cell-size: 100px;
+$total-width: ($cell-size + 1px)*7;
+$total-height: ($cell-size + 1px)*5;
+$days-count: 28, 29, 30;
+$week-days: (
+  "tue" : 1,
+  "wed" : 2,
+  "thu" : 3,
+  "fri" : 4,
+  "sat" : 5,
+  "sun" : 6
+);
+
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
+  padding: 20px;
+  font-family: $main-font;
+  font-size: $font-size;
+}
+
+.calendar {
+  display: flex;
+  justify-content: flex-start;
+  align-content: center;
+  text-align: center;
+  line-height: $cell-size;
+  flex-wrap: wrap;
+  width: $total-width;
+  height: $total-height;
+}
+
+@for $i from 1 through 31 {
+  .calendar :nth-child(n + #{$i}) {
+    width: $cell-size;
+    height: $cell-size;
+    background-color: $cell-color;
+    border: 1px solid black;
+    margin: 0.5px;
+    position: relative;
+  }
+}
+
+@for $i from 1 through 31 {
+  .calendar :nth-child(#{$i})::after {
+    content: "#{$i}";
+  }
+}
+
+@for $i from 1 through 31 {
+  .calendar :nth-child(n + #{$i}):hover {
+    cursor: pointer;
+    background-color: $hover-color;
+    top: -20px;
+  }
+}
+
+@for $i from 28 through 30 {
+  .calendar-#{$i} > div:nth-child(n + #{$i + 1}) {
+    display: none;
+  }
+}
+
+@each $week-days, $n in $week-days {
+  .calendar-#{$week-days} :first-child {
+    margin-left: $n * ($cell-size + 1px);
+  }
 }
