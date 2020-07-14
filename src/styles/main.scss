@@ -74,6 +74,6 @@ body {
 
 @each $week-days, $n in $week-days {
   .calendar-#{$week-days} :first-child {
-    margin-left: $n * ($cell-size)+$margin-cells*3;
+    margin-left: $n * ($cell-size) + $margin-cells * 3;
   }
 }
