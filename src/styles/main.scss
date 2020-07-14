@@ -1,7 +1,9 @@
 $main-font: arial, sans-serif;
 $font-size: 30px;
-$cell-color: #eee;
+$cell-color: rgba(177, 192, 111, 0.36);
+$hover-border: rgba(88, 10, 10, 0.89);
 $hover-color: pink;
+$margin-cells: 1px;
 $cell-size: 100px;
 $total-width: ($cell-size + 1px)*7;
 $total-height: ($cell-size + 1px)*5;
@@ -28,8 +30,6 @@ body {
 
 .calendar {
   display: flex;
-  justify-content: flex-start;
-  align-content: center;
   text-align: center;
   line-height: $cell-size;
   flex-wrap: wrap;
@@ -43,7 +43,7 @@ body {
     height: $cell-size;
     background-color: $cell-color;
     border: 1px solid black;
-    margin: 0.5px;
+    margin: $margin-cells;
     position: relative;
   }
 }
@@ -57,7 +57,11 @@ body {
 @for $i from 1 through 31 {
   .calendar :nth-child(n + #{$i}):hover {
     cursor: pointer;
+    border: 2px solid $hover-border;
     background-color: $hover-color;
+    border-top-left-radius: 100% 20px;
+    border-bottom-right-radius: 100% 20px;
+    transition-duration: 0.59s;
     top: -20px;
   }
 }
@@ -70,6 +74,6 @@ body {
 
 @each $week-days, $n in $week-days {
   .calendar-#{$week-days} :first-child {
-    margin-left: $n * ($cell-size + 1px);
+    margin-left: $n * ($cell-size)+$margin-cells*3;
   }
 }
